@@ -1,12 +1,9 @@
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import java.io.*;
-import java.net.Socket;
-import java.security.Key;
-import java.security.interfaces.RSAPublicKey;
-import java.util.ArrayList;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 /**
  * Created by brianzhao on 2/2/16.
@@ -16,16 +13,14 @@ public class JCEHw {
     private static final String CIPH_FILE_NAME = "ciphertext.txt";
     private static final String DECRYPTED_FILE_NAME = "decrypted.txt";
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
         keyGenerator.init(128);
         SecretKey key = keyGenerator.generateKey();
 
-        File plaintext= new File(PLAIN_FILE_NAME);
+        File plaintext = new File(PLAIN_FILE_NAME);
         File ciphertext = encryptFile(plaintext, key);
         File decrypted = decryptFile(ciphertext, key);
-
-
     }
 
     public static File encryptFile(File plaintext, SecretKey key) throws Exception {
@@ -65,19 +60,5 @@ public class JCEHw {
         fileOutputStream.close();
         return decrypted;
     }
-
-
-    public static String byteArrayToString(byte[] input){
-        StringBuilder result = new StringBuilder();
-        for (byte x : input) {
-            if (x == 0) {
-                result.append(0);
-            } else {
-                result.append(1);
-            }
-        }
-        return result.toString();
-    }
-
 
 }
